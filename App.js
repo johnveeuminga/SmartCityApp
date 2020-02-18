@@ -1,114 +1,86 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { View, Text, Image } from 'react-native';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import HomeScreen from './src/screens/homescreen';
+import FireScreen from './src/screens/firescreen'
+import HealthScreen from './src/screens/healthscreen'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Root } from 'native-base';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+
+const Drawer = createDrawerNavigator()
+const Stack = createStackNavigator()
+const Tab = createMaterialBottomTabNavigator();
+
+
+function CustomDrawerContent(props) {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <DrawerContentScrollView {...props}>
+    <View style={{height: 200, margin:10, backgroundColor: 'white', borderBottomWidth: 1, backgroundColor: '#0F85FB'}}>
+      <View style={{paddingTop: 20, paddingLeft:20}}>
+        <Image source={require('./src/screens/images/profile.png')} style={{height: 100, width: 100}} />
+      </View>
+      <View style={{margin:10}}> 
+        <Text style={{fontSize:20,fontWeight: 'bold', color: 'white'}}>Juana Dela Cruz</Text>
+        <Text style={{fontSize:15, color: 'white'}}>thorgwapz4ever@gmail.com</Text>
+      </View>
+    </View>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+function MyTabs() {
+  return (
+    <Tab.Navigator style={{ backgroundColor: 'red' }}>
+      <Tab.Screen name="Explore" component={HomeScreen} options={{ tabBarIcon: config => <Icon name="home" size={23} color='white'>
+      </Icon>}} />
+      <Tab.Screen name="Map" component={FireScreen} options={{ tabBarIcon: config => <Icon name="map" size={23} color='white'>
+      </Icon>}} />
+      <Tab.Screen name="Profile" component={FireScreen} options={{ tabBarIcon: config => <Icon name="user" size={23} color='white'>
+      </Icon>}} />
+      <Tab.Screen name="Inbox" component={FireScreen} options={{ tabBarIcon: config => <Icon name="inbox" size={23} color='white'>
+      </Icon>}} />
+    </Tab.Navigator>
+  );
+}
 
-export default App;
+export default class App extends React.Component{
+
+  createHomeStack = () =>
+    <Stack.Navigator initialRouteName="MyTabs" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="MyTabs" component={MyTabs} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+    </Stack.Navigator>
+
+  render(){
+    return(
+      <NavigationContainer>
+        <Drawer.Navigator drawerContent={props => CustomDrawerContent(props)}>
+          <Drawer.Screen name="Home" children={this.createHomeStack} options={{
+            drawerIcon: config => <Icon size={23} name="home" color="#407EC2"></Icon>
+          }}/>
+          <Drawer.Screen name="Bureau of Fire Protection" component={FireScreen} options={{
+            drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
+          }} />
+          <Drawer.Screen name="Health Services Office" component={FireScreen} options={{
+            drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
+          }}/>
+          <Drawer.Screen name=" City Treasurer's Office" component={FireScreen} options={{
+            drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
+          }}/>          
+          <Drawer.Screen name=" City Building and Architecture Office" component={FireScreen} options={{
+            drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
+          }}/>      
+          <Drawer.Screen name=" City Assessor's Office" component={FireScreen} options={{
+            drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
+          }}/>                    
+        </Drawer.Navigator>
+      </NavigationContainer>
+    )
+  }
+}
