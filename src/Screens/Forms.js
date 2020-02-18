@@ -15,6 +15,13 @@ class Forms extends React.Component{
             <Container>
                 <View>
 
+                    
+                <Image source= {require('../Images/baguiologo.png')} style= {style.bg}>
+
+                </Image>
+
+                <View style={{ position: 'relative', zIndex: 10}}>
+
                     <View>
                         <Text style = {style.s1}>
                             Republic of the Philippines
@@ -77,14 +84,10 @@ class Forms extends React.Component{
                     </Button>
 
                     </View>
-
-                    
+                </View>  
 
                 </View>
 
-                <Image source= {require('../Images/baguiologo.png')} style= {style.bg}>
-
-                </Image>
             </Container>
         )
     }

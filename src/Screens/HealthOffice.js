@@ -5,21 +5,28 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 
 class HealthOffice extends React.Component{
+    navigate(screen) {
+        console.log('Test')
+        const { navigation } = this.props
+
+        navigation.navigate(screen)
+
+    }
+
     render(){
         return(
-            <Container>
                 <ScrollView>
                     <View>
                         <View style= {{ justifyContent:'center', alignItems: 'center' }}>
                             <Image source= {require('../Images/doh.png')} style={style.img}> 
                             </Image>
                         </View>
-                        <View>
+                        <View style={{ position: 'relative', zIndex: 10,}}>
                             <View style= {{ justifyContent:'center', alignItems: 'center' }}>
                                 <Text style = {style.txt}>
                                     Frontline Services
                                 </Text>
-                                <Button rounded style = {style.btn} >
+                                <Button rounded style = {style.btn} onPress={() => this.navigate('Forms')}>
                                     <Text style = {style.txt1}>APPLY Medical Certificate</Text>
                                 </Button>
                                 <Button rounded style = {style.btn}>
@@ -61,12 +68,11 @@ class HealthOffice extends React.Component{
  
                         </View>
                     </View>
+                    <Image source= {require('../Images/baguiologo.png')} style= {style.bg}>
+
+                    </Image>
                 </ScrollView>
 
-                <Image source= {require('../Images/baguiologo.png')} style= {style.bg}>
-
-                </Image>
-            </Container>
         )
         
     }
@@ -75,7 +81,9 @@ const style = StyleSheet.create({
     img:{
         width: 200,
         height: 200,
-        marginTop: 25
+        marginTop: 25,
+        zIndex: -1,
+        position: 'relative'
     },
      txt:{
         paddingTop: 25,
@@ -98,7 +106,7 @@ const style = StyleSheet.create({
         marginVertical: 225,
         marginHorizontal: 65,
         opacity: 0.1,
-        
+        zIndex: -1
     }
     
 })
