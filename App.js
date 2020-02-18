@@ -10,6 +10,11 @@ import HealthScreen from './src/screens/healthscreen'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Root } from 'native-base';
 
+import OfficeMain from './src/screens/OfficeMain'
+import HealthOffice from './src/screens/HealthOffice'
+import Forms from './src/screens/Forms'
+import Camera from './src/screens/Camera'
+
 
 
 const Drawer = createDrawerNavigator()
@@ -49,25 +54,33 @@ function MyTabs() {
   );
 }
 
-export default class App extends React.Component{
+const HealthOfficeStack = () => 
+  <Stack.Navigator initialRouteName="HealthOffice" screenOptions={{}}>
+    <Stack.Screen name="HealthOffice" component={HealthOffice} />
+    <Stack.Screen name="Forms" component={Forms} />
+  </Stack.Navigator>
 
-  createHomeStack = () =>
-    <Stack.Navigator initialRouteName="MyTabs" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MyTabs" component={MyTabs} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-    </Stack.Navigator>
+const HomeStack = () =>
+  <Stack.Navigator initialRouteName="MyTabs" screenOptions={{headerShown: false}}>
+    <Stack.Screen name="MyTabs" component={MyTabs} />
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="HealthOfficeStack" component={HealthOfficeStack} />
+    <Stack.Screen name="FireBureau" component={FireScreen} />
+  </Stack.Navigator>
+
+export default class App extends React.Component{
 
   render(){
     return(
       <NavigationContainer>
         <Drawer.Navigator drawerContent={props => CustomDrawerContent(props)}>
-          <Drawer.Screen name="Home" children={this.createHomeStack} options={{
+          <Drawer.Screen name="Home" children={HomeStack} options={{
             drawerIcon: config => <Icon size={23} name="home" color="#407EC2"></Icon>
           }}/>
           <Drawer.Screen name="Bureau of Fire Protection" component={FireScreen} options={{
             drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
           }} />
-          <Drawer.Screen name="Health Services Office" component={FireScreen} options={{
+          <Drawer.Screen name="Health Services Office" component={HealthOfficeStack} options={{
             drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
           }}/>
           <Drawer.Screen name=" City Treasurer's Office" component={FireScreen} options={{
