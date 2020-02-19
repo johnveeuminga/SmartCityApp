@@ -14,6 +14,8 @@ import OfficeMain from './src/screens/OfficeMain'
 import HealthOffice from './src/screens/HealthOffice'
 import Forms from './src/screens/Forms'
 import Camera from './src/screens/Camera'
+import Success from './src/screens/Success'
+
 
 
 
@@ -58,6 +60,12 @@ const HealthOfficeStack = () =>
   <Stack.Navigator initialRouteName="HealthOffice" screenOptions={{}}>
     <Stack.Screen name="HealthOffice" component={HealthOffice} />
     <Stack.Screen name="Forms" component={Forms} />
+    <Stack.Screen name="Camera" component={Camera} />
+    <Stack.Screen name="Success" component={Success} />
+    <Stack.Screen name="OfficeMain" component={OfficeMain} />
+
+
+
   </Stack.Navigator>
 
 const HomeStack = () =>
@@ -77,7 +85,7 @@ export default class App extends React.Component{
           <Drawer.Screen name="Home" children={HomeStack} options={{
             drawerIcon: config => <Icon size={23} name="home" color="#407EC2"></Icon>
           }}/>
-          <Drawer.Screen name="Bureau of Fire Protection" component={FireScreen} options={{
+          <Drawer.Screen name="Bureau of Fire Protection" component={OfficeMain } options={{
             drawerIcon: config => <Icon size={23} name="chevron-right" color="#407EC2"></Icon>
           }} />
           <Drawer.Screen name="Health Services Office" component={HealthOfficeStack} options={{

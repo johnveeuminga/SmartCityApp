@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Container, View,Text, Button } from 'native-base'
 import {StyleSheet, Image} from 'react-native'
@@ -23,8 +24,15 @@ class Camera extends React.Component{
                              Access your CAMERA for 1x1 I.D
                             </Text>
                         </Button>
-                        
-                        
+                    </View>
+
+                    <View>
+                        <Button block rounded style = {style.btn} onPress= {() => this.navigate('Success')}>
+                            <Text>
+                                Submit
+                            </Text>
+
+                        </Button>
                     </View>
                     
                 </View>

@@ -1,51 +1,79 @@
+
 import React from 'react'
 import { Text, Container, View, Item, Form, Input, Label, Button } from 'native-base'
-import { StyleSheet, Image } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { StyleSheet, Image, Alert } from 'react-native'
+import DatePicker from 'react-native-datepicker'
 
 
 
 class Forms extends React.Component{
+
     navigate(screenName){
         this.props.navigation.push(screenName)
     }
+
+    constructor(props){
+        super(props)
+        this.state = {date:"01-01-1800"}
+      }
+    //   componentDidMount() {
+    //     var that = this;
+    //     var date = new Date().getDate(); //Current Date
+    //     var month = new Date().getMonth() + 1; //Current Month
+    //     var year = new Date().getFullYear(); //Current Year
+    //     that.setState({
+    //       //Setting the value of the date time
+    //       date:
+    //         date + '/' + month + '/' + year,
+    //     });
+    //   }
+
+ 
+
     render(){
-        
+        var date = new Date().getDate(); //Current Date
+
         return(
             <Container>
                 <View>
-
-                    
-                <Image source= {require('../Images/baguiologo.png')} style= {style.bg}>
-
-                </Image>
-
                 <View style={{ position: 'relative', zIndex: 10}}>
-
-                    <View>
-                        <Text style = {style.s1}>
-                            Republic of the Philippines
-                        </Text>
-                        <Text style = {style.s2}> 
-                            City Government of Baguio
-                        </Text>
-                        <Text style = {style.s2}>
-                            HEALTH SERVICE OFFICE
-                        </Text>
-                    </View>
-
                     <View>
                         <Text style= {style.s1} >APPLICATION FORM HEALTH CERTIFICATE
                         </Text>
                     </View>
 
-                       
-
                     <Form>
                         <Item style = {style.s4}>
                             <Label>Date: </Label>
-                        <Input />
                         </Item>
+                        
+                        <DatePicker
+                            style={{width: 200}}
+                            date={this.state.date}
+                            mode="date"
+                            placeholder="select date"
+                            format="MM-DD-YYYY"
+                            minDate={"01-01-1800"}
+                            maxDate="01-01-2050"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                            dateInput: {
+                                marginLeft: 36
+                            }
+                           
+                            }}
+                            onDateChange={(date) => {this.setState({date: date})}}
+                        />
+
+
+
                         <Item>
                             <Label>Name: </Label>
                         <Input />
@@ -97,8 +125,9 @@ const style = StyleSheet.create({
     s1: {
         textAlign: 'center',
         marginTop: 15,
-        fontSize: 12,
-        paddingTop: 25
+        fontSize: 18,
+        paddingTop: 25,
+        fontWeight: 'bold'
     },
     s2:{
         textAlign: 'center',
@@ -128,7 +157,7 @@ const style = StyleSheet.create({
     },
     bg:{
         position:'absolute',
-        marginVertical: 225,
+        marginVertical:150,
         marginHorizontal: 65,
         opacity: 0.1,
         
